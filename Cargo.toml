@@ -7,6 +7,8 @@ license = "MIT"
 documentation = "https://docs.rs/"
 repository = "https://github.com/tyrchen/"
 homepage = "https://github.com/tyrchen/"
+description = "A simple tool to test sqlx with prostgres.it will automatically create a database and drop it after the test"
+description_ch = "一个用prostgres测试sqlx的简单工具，测试完会自动创建数据库，并且测试完成后drop它"
 
 readme = "README.md"
 categories = ["development-tools"]

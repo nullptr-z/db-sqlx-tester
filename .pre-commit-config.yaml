@@ -21,12 +21,12 @@ repos:
       - id: typos
   - repo: local
     hooks:
-      - id: cargo-fmt
-        name: cargo fmt
-        description: Format files with rustfmt.
-        entry: bash -c 'cargo fmt -- --check'
+      - id: typos
+        name: typos
+        description: Check typos in ther code
+        entry: bash -c 'typos'
         language: rust
-        files: \.rs$
+        files: \.*$
         args: []
       - id: cargo-deny
         name: cargo deny check
