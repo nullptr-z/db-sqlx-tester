@@ -12,7 +12,8 @@ pub struct TestDb {
     pub dbname: String,
 }
 
-impl TestDb {
+impl TestDb
+    /** 执行一系列访问数据库服务所需参数。从 migration_path路径读取 SQL 文件 */
     pub fn new(
         host: impl Into<String>,
         port: u16,
@@ -23,10 +24,10 @@ impl TestDb {
         let host = host.into();
         let user = user.into();
         let password = password.into();
-
         let uuid = Uuid::new_v4();
-        let dbname = format!("test_{}", uuid);
+        let dbname = format!("test_{}", uuid); // 生成一个随机库名，用于测试
         let dbname_cloned = dbname.clone();
+
         let tdb = Self {
             host,
             port,
@@ -44,13 +45,16 @@ impl TestDb {
             rt.block_on(async move {
                 // use server url to create database
                 let mut conn = PgConnection::connect(&server_url).await.unwrap();
+                // 创建一个测试库，`dbname`
                 conn.execute(format!(r#"CREATE DATABASE "{}""#, dbname_cloned).as_str())
                     .await
                     .expect("Error while querying the reservation database");
 
                 // now connect to test database for migration
                 let mut conn = PgConnection::connect(&url).await.unwrap();
+                // 通过 SQL 文件所在的路径创建 Migrator对象
                 let m = Migrator::new(Path::new(&migration_path)).await.unwrap();
+                // 执行这些 SQL 文件，`command: sqlx migrate run`
                 m.run(&mut conn).await.unwrap();
             });
         })
