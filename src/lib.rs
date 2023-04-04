@@ -12,7 +12,7 @@ pub struct TestDb {
     pub dbname: String,
 }
 
-impl TestDb
+impl TestDb {
     /** 执行一系列访问数据库服务所需参数。从 migration_path路径读取 SQL 文件 */
     pub fn new(
         host: impl Into<String>,
